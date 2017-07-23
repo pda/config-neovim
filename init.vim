@@ -38,6 +38,10 @@ nnoremap <C-k> :m .-2<CR>==
 vnoremap <C-j> :m '>+1<CR>gv=gv
 vnoremap <C-k> :m '<-2<CR>gv=gv
 
+" reselect visual block after shifting indentation
+vnoremap < <gv
+vnoremap > >gv
+
 
 """""""
 " mouse
