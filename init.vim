@@ -78,3 +78,11 @@ set scrolloff=3
 let g:is_bash=1
 
 autocmd FileType ruby :inoreabbrev <buffer> pry! require "pry"; binding.pry
+
+
+"""""""""
+" plugins
+
+" ctrlp.vim
+" when opening multiple files, prompt for tab/split/etc.
+let g:ctrlp_arg_map = 1
