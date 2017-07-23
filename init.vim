@@ -53,6 +53,9 @@ set shiftwidth=2
 " use clipboard for all operations, without explicit +/* registers.
 set clipboard+=unnamedplus
 
+" keep hidden/background buffers; allow unsaved changes etc.
+set hidden
+
 
 """"""""""""
 " file types
