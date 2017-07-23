@@ -45,3 +45,6 @@ set expandtab
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
+
+" use clipboard for all operations, without explicit +/* registers.
+set clipboard+=unnamedplus
