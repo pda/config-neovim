@@ -32,6 +32,12 @@ nmap <Down> <C-W><Down>
 nmap <Left> <C-W><Left>
 nmap <Right> <C-W><Right>
 
+" move lines up/down, reindenting
+nnoremap <C-j> :m .+1<CR>==
+nnoremap <C-k> :m .-2<CR>==
+vnoremap <C-j> :m '>+1<CR>gv=gv
+vnoremap <C-k> :m '<-2<CR>gv=gv
+
 
 """""""
 " mouse
