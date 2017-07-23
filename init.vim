@@ -3,6 +3,7 @@
 
 " jellybeans theme, with black background instead of grey
 let g:jellybeans_overrides = {"background": {"guibg": "000000"}}
+let g:jellybeans_use_term_italics = 1
 colorscheme jellybeans
 
 " highlight current cursor line, with a notch after column 80
