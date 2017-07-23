@@ -56,6 +56,9 @@ set clipboard+=unnamedplus
 " keep hidden/background buffers; allow unsaved changes etc.
 set hidden
 
+" lines to keep above/below cursor when scrolling
+set scrolloff=3
+
 
 """"""""""""
 " file types
