@@ -76,3 +76,5 @@ set scrolloff=3
 " assume shell scripts as bash; fixes $(subcommand) syntax highlighting.
 " https://github.com/neovim/neovim/blob/253f6f3b/runtime/syntax/sh.vim#L16
 let g:is_bash=1
+
+autocmd FileType ruby :inoreabbrev <buffer> pry! require "pry"; binding.pry
