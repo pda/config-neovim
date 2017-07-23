@@ -12,6 +12,9 @@ set colorcolumn=81
 " show line numbers
 set number
 
+" I = skip intro message on startup
+set shortmess=I
+
 
 """"""""""
 " keyboard
