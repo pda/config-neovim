@@ -1,3 +1,13 @@
+"""""""""
+" display
+
+" jellybeans theme, with black background instead of grey
+let g:jellybeans_overrides = {"background": {"guibg": "000000"}}
+colorscheme jellybeans
+
+""""""""""
+" keyboard
+
 " change <Leader> from default '\' to home-row-friendly ';'
 let mapleader = ";"
 

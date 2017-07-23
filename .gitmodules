@@ -1,0 +1,3 @@
+[submodule "pack/pda/start/jellybeans.vim"]
+	path = pack/pda/start/jellybeans.vim
+	url = https://github.com/nanotech/jellybeans.vim.git
