@@ -6,6 +6,13 @@ let g:jellybeans_overrides = {"background": {"guibg": "000000"}}
 let g:jellybeans_use_term_italics = 1
 colorscheme jellybeans
 
+" vertical split color
+highlight VertSplit ctermfg=235 ctermbg=235 cterm=NONE
+
+" status line color
+highlight StatusLine ctermfg=250 ctermbg=238 cterm=NONE
+highlight StatusLineNC ctermfg=black ctermbg=235 cterm=NONE
+
 " highlight current cursor line, with a notch after column 80
 set cursorline
 set colorcolumn=81
