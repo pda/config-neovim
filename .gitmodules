@@ -4,3 +4,6 @@
 [submodule "pack/pda/start/ctrlp.vim"]
 	path = pack/pda/start/ctrlp.vim
 	url = https://github.com/ctrlpvim/ctrlp.vim.git
+[submodule "pack/pda/start/vim-go"]
+	path = pack/pda/start/vim-go
+	url = https://github.com/fatih/vim-go.git
