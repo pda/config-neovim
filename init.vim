@@ -16,6 +16,9 @@ set number
 " I = skip intro message on startup
 set shortmess=I
 
+" display invisible characters as per 'listchars' option
+set list
+
 
 """"""""""
 " keyboard
