@@ -7,11 +7,11 @@ let g:jellybeans_use_term_italics = 1
 colorscheme jellybeans
 
 " vertical split color
-highlight VertSplit ctermfg=235 ctermbg=235 cterm=NONE
+autocmd ColorScheme * highlight VertSplit ctermfg=235 ctermbg=235 cterm=NONE
 
 " status line color
-highlight StatusLine ctermfg=250 ctermbg=238 cterm=NONE
-highlight StatusLineNC ctermfg=black ctermbg=235 cterm=NONE
+autocmd ColorScheme * highlight StatusLine ctermfg=250 ctermbg=238 cterm=NONE
+autocmd ColorScheme * highlight StatusLineNC ctermfg=black ctermbg=235 cterm=NONE
 
 " highlight current cursor line, with a notch after column 80
 set cursorline
@@ -84,7 +84,7 @@ set scrolloff=3
 " https://github.com/neovim/neovim/blob/253f6f3b/runtime/syntax/sh.vim#L16
 let g:is_bash=1
 
-autocmd FileType ruby :inoreabbrev <buffer> pry! require "pry"; binding.pry
+autocmd FileType ruby inoreabbrev <buffer> pry! require "pry"; binding.pry
 
 
 """""""""
