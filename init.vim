@@ -5,6 +5,10 @@
 let g:jellybeans_overrides = {"background": {"guibg": "000000"}}
 colorscheme jellybeans
 
+" show line numbers
+set number
+
+
 """"""""""
 " keyboard
 
