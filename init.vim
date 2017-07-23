@@ -5,6 +5,10 @@
 let g:jellybeans_overrides = {"background": {"guibg": "000000"}}
 colorscheme jellybeans
 
+" highlight current cursor line, with a notch after column 80
+set cursorline
+set colorcolumn=81
+
 " show line numbers
 set number
 
