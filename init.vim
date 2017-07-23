@@ -48,3 +48,11 @@ set shiftwidth=2
 
 " use clipboard for all operations, without explicit +/* registers.
 set clipboard+=unnamedplus
+
+
+""""""""""""
+" file types
+
+" assume shell scripts as bash; fixes $(subcommand) syntax highlighting.
+" https://github.com/neovim/neovim/blob/253f6f3b/runtime/syntax/sh.vim#L16
+let g:is_bash=1
