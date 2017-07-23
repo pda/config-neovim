@@ -29,6 +29,14 @@ nmap <Left> <C-W><Left>
 nmap <Right> <C-W><Right>
 
 
+"""""""
+" mouse
+
+" Mouse for scrolling etc in console.
+" a = normal + visual + insert + command-line + help files
+set mouse=a
+
+
 """"""""""
 " behavior
 
