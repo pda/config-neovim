@@ -10,3 +10,6 @@
 [submodule "pack/pda/start/vim-fugitive"]
 	path = pack/pda/start/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
+[submodule "pack/pda/start/vim-surround"]
+	path = pack/pda/start/vim-surround
+	url = https://github.com/tpope/vim-surround
