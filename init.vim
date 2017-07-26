@@ -21,7 +21,8 @@ set colorcolumn=81
 set number
 
 " I = skip intro message on startup
-set shortmess=I
+" F = skip file info prompt when opening file
+set shortmess=IF
 
 " display invisible characters as per 'listchars' option
 set list
