@@ -77,6 +77,11 @@ set hidden
 " lines to keep above/below cursor when scrolling
 set scrolloff=3
 
+" Show effect of command incrementally; :%s/foo/bar/g etc
+"nosplit": Shows the effects of a command incrementally, as you type.
+"split"  : Also shows partial off-screen results in a preview window.
+set inccommand=split
+
 
 """"""""""""
 " file types
