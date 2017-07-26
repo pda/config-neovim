@@ -65,8 +65,8 @@ set mouse=a
 " indent with two spaces by default
 set expandtab
 set tabstop=2
-set softtabstop=2
-set shiftwidth=2
+set softtabstop=0 " disable
+set shiftwidth=0 " when zero, the tabstop value is used
 
 " use clipboard for all operations, without explicit +/* registers.
 set clipboard+=unnamedplus
