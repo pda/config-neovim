@@ -13,3 +13,6 @@
 [submodule "pack/pda/start/vim-surround"]
 	path = pack/pda/start/vim-surround
 	url = https://github.com/tpope/vim-surround
+[submodule "pack/pda/start/vim-rhubarb"]
+	path = pack/pda/start/vim-rhubarb
+	url = https://github.com/tpope/vim-rhubarb
