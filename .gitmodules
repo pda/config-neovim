@@ -19,3 +19,6 @@
 [submodule "pack/pda/start/elm-vim"]
 	path = pack/pda/start/elm-vim
 	url = https://github.com/ElmCast/elm-vim
+[submodule "pack/pda/start/typescript-vim"]
+	path = pack/pda/start/typescript-vim
+	url = https://github.com/leafgarland/typescript-vim.git
