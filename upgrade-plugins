@@ -1,0 +1,49 @@
+#!/bin/bash
+set -e -o pipefail -u
+
+main() {
+  if [[ $# -eq 0 ]]; then
+    exec git submodule foreach --quiet \
+      "\$toplevel/$(basename "$0") \$sm_path \$sha1 \$toplevel"
+  fi
+
+  local sm_path="$1"
+  local sha1="$2"
+  local toplevel="$3"
+
+  local upstream="origin/master" # can't assume submodules have tracking branches
+  local short_name; short_name="$(basename "$sm_path")"
+
+  echo "Fetching $short_name"
+  git fetch
+
+  local count; count="$(git rev-list --count "$sha1..$upstream")"
+  if [[ $count -eq 0 ]]; then
+    exit 0
+  fi
+
+  local commit_msg
+  printf \
+    -v commit_msg \
+    "Update %s (%d commits)\n\n%s\n" \
+    "$short_name" \
+    "$count" \
+    "$(git_log)"
+
+  git checkout --quiet "$upstream"
+
+  cd "$toplevel"
+  git add "$sm_path"
+  git commit --message "$commit_msg"
+}
+
+git_log() {
+  git --no-pager log \
+    -10 \
+    --abbrev-commit \
+    --format=oneline \
+    --graph \
+    "$sha1..$upstream"
+}
+
+main "$@"
