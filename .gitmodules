@@ -22,3 +22,6 @@
 [submodule "pack/pda/start/typescript-vim"]
 	path = pack/pda/start/typescript-vim
 	url = https://github.com/leafgarland/typescript-vim.git
+[submodule "pack/pda/start/deoplete.nvim"]
+	path = pack/pda/start/deoplete.nvim
+	url = https://github.com/Shougo/deoplete.nvim
