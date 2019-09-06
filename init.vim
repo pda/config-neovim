@@ -105,7 +105,6 @@ if executable("goimports")
   let g:go_fmt_command = "goimports"
 endif
 let g:go_auto_sameids = 1 " highlight other instances of identifier under cursor
-let g:go_auto_type_info = 1 " show the type info for word under cursor
 let g:go_updatetime = 200 " delay (ms) for sameids, type_info etc (default 800)
 
 " deoplete
