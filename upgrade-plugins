@@ -39,7 +39,6 @@ main() {
 
 git_log() {
   git --no-pager log \
-    -10 \
     --abbrev-commit \
     --format=oneline \
     --graph \
