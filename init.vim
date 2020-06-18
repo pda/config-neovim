@@ -107,3 +107,6 @@ let g:go_gopls_complete_unimported = 1 " include suggestions from unimported pac
 " deoplete
 let g:deoplete#enable_at_startup = 1
 set completeopt-=preview " disable the preview window feature (see FAQ)
+
+" fzf
+nmap <C-p> :FZF<CR>
