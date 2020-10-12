@@ -34,3 +34,6 @@
 [submodule "pack/pda/start/fzf.vim"]
 	path = pack/pda/start/fzf.vim
 	url = https://github.com/junegunn/fzf.vim
+[submodule "pack/pda/start/vim-ps1"]
+	path = pack/pda/start/vim-ps1
+	url = https://github.com/PProvost/vim-ps1
