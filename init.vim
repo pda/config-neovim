@@ -110,3 +110,10 @@ set completeopt-=preview " disable the preview window feature (see FAQ)
 
 " fzf
 nmap <C-p> :FZF<CR>
+
+" vim-asm_ca65
+let g:asm_ca65_wdc = 1
+filetype plugin indent on
+augroup filetypedetect
+    au BufNewFile,BufRead *.s,*.inc set ft=asm_ca65
+augroup END

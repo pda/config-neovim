@@ -37,3 +37,6 @@
 [submodule "pack/pda/start/vim-ps1"]
 	path = pack/pda/start/vim-ps1
 	url = https://github.com/PProvost/vim-ps1
+[submodule "pack/pda/start/vim-asm_ca65"]
+	path = pack/pda/start/vim-asm_ca65
+	url = https://github.com/maxbane/vim-asm_ca65.git
