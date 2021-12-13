@@ -2,16 +2,14 @@
 " display
 
 " jellybeans theme, with black background instead of grey
-let g:jellybeans_overrides = {"background": {"guibg": "000000"}}
 let g:jellybeans_use_term_italics = 1
+let g:jellybeans_overrides = {
+\  "background":   {"guibg": "000000"},
+\  "StatusLine":   {"guifg": "bcbcbc", "guibg": "444444"},
+\  "StatusLineNC": {"guifg": "000000", "guibg": "262626"},
+\  "VertSplit":    {"guifg": "262626", "guibg": "262626"},
+\}
 colorscheme jellybeans
-
-" vertical split color
-autocmd ColorScheme * highlight VertSplit ctermfg=235 ctermbg=235 cterm=NONE
-
-" status line color
-autocmd ColorScheme * highlight StatusLine ctermfg=250 ctermbg=238 cterm=NONE
-autocmd ColorScheme * highlight StatusLineNC ctermfg=black ctermbg=235 cterm=NONE
 
 " highlight current cursor line, with a notch after column 80
 set cursorline
