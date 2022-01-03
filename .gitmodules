@@ -40,3 +40,6 @@
 [submodule "pack/pda/start/vim-asm_ca65"]
 	path = pack/pda/start/vim-asm_ca65
 	url = https://github.com/maxbane/vim-asm_ca65.git
+[submodule "pack/pda/start/nvim-lspconfig"]
+	path = pack/pda/start/nvim-lspconfig
+	url = https://github.com/neovim/nvim-lspconfig
