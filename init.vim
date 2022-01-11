@@ -107,7 +107,9 @@ nmap <C-p> :FZF<CR>
 let g:asm_ca65_wdc = 1
 filetype plugin indent on
 augroup filetypedetect
-    au BufNewFile,BufRead *.s,*.inc set ft=asm_ca65
+    autocmd BufEnter *.s setlocal filetype=asm_ca65 colorcolumn=17,41
+    autocmd BufEnter *.s highlight ColorColumn ctermbg=232
+    autocmd BufLeave *.s highlight ColorColumn ctermbg=0
 augroup END
 
 " rust.vim
