@@ -113,6 +113,9 @@ augroup filetypedetect
     au BufNewFile,BufRead *.s,*.inc set ft=asm_ca65
 augroup END
 
+" rust.vim
+let g:rustfmt_autosave = 1
+
 lua <<EOF
 require('lspconfig').rust_analyzer.setup{}
 EOF

@@ -43,3 +43,6 @@
 [submodule "pack/pda/start/nvim-lspconfig"]
 	path = pack/pda/start/nvim-lspconfig
 	url = https://github.com/neovim/nvim-lspconfig
+[submodule "pack/pda/start/rust.vim"]
+	path = pack/pda/start/rust.vim
+	url = https://github.com/rust-lang/rust.vim
