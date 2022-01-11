@@ -92,9 +92,6 @@ autocmd FileType ruby inoreabbrev <buffer> pry! require "pry"; binding.pry
 " plugins
 
 " vim-go
-if executable("goimports")
-  let g:go_fmt_command = "goimports"
-endif
 let g:go_auto_sameids = 1 " highlight other instances of identifier under cursor
 let g:go_updatetime = 200 " delay (ms) for sameids, type_info etc (default 800)
 let g:go_gopls_complete_unimported = 1 " include suggestions from unimported packages
