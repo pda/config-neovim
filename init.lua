@@ -88,14 +88,17 @@ vim.cmd [[
 ----------
 -- plugins
 
+local lspconfig = require("lspconfig")
+local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+for _, server in ipairs({ "gopls", "rust_analyzer", "yamlls" }) do
+  lspconfig[server].setup { capabilities = capabilities }
+end
+
 -- vim-go
+require("lspconfig").gopls.setup{}
 vim.g.go_auto_sameids = 1 -- highlight other instances of identifier under cursor
 vim.g.go_updatetime = 200 -- delay (ms) for sameids, type_info etc (default 800)
 vim.g.go_gopls_complete_unimported = 1 -- include suggestions from unimported packages
-
--- deoplete
-vim.g["deoplete#enable_at_startup"] = true
-vim.opt.completeopt:remove("preview") -- disable the preview window feature (see FAQ)
 
 -- fzf
 vim.api.nvim_set_keymap("n", "<C-p>", ":FZF<CR>", {})
@@ -113,13 +116,60 @@ vim.cmd [[
 
 -- rust.vim
 vim.g.rustfmt_autosave = true
-require('lspconfig').rust_analyzer.setup{}
+require("lspconfig").rust_analyzer.setup{}
 
 -- redhat-developer/yaml-language-store
-require('lspconfig').yamlls.setup {
+require("lspconfig").yamlls.setup {
   settings = {
     yaml = {
       {schemaStore = {enable = true}},
     },
   }
 }
+
+vim.opt.completeopt = "menu,menuone,noselect"
+
+local cmp = require("cmp")
+local luasnip = require("luasnip")
+cmp.setup({
+  snippet = {
+    expand = function(args)
+      luasnip.lsp_expand(args.body)
+    end,
+  },
+  mapping = {
+    ["<C-p>"] = cmp.mapping.select_prev_item(),
+    ["<C-n>"] = cmp.mapping.select_next_item(),
+    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+    ["<C-f>"] = cmp.mapping.scroll_docs(4),
+    ["<C-Space>"] = cmp.mapping.complete(),
+    ["<C-e>"] = cmp.mapping.close(),
+    ["<CR>"] = cmp.mapping.confirm {
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
+    },
+    ['<Tab>'] = function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      else
+        fallback()
+      end
+    end,
+    ['<S-Tab>'] = function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end,
+  },
+  sources = cmp.config.sources({
+    { name = "nvim_lsp" },
+    { name = 'luasnip' },
+    { name = "buffer" },
+  })
+})
