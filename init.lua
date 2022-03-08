@@ -114,3 +114,12 @@ vim.cmd [[
 -- rust.vim
 vim.g.rustfmt_autosave = true
 require('lspconfig').rust_analyzer.setup{}
+
+-- redhat-developer/yaml-language-store
+require('lspconfig').yamlls.setup {
+  settings = {
+    yaml = {
+      {schemaStore = {enable = true}},
+    },
+  }
+}
