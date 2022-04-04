@@ -101,7 +101,7 @@ vim.g.go_updatetime = 200 -- delay (ms) for sameids, type_info etc (default 800)
 vim.g.go_gopls_complete_unimported = 1 -- include suggestions from unimported packages
 
 -- fzf
-vim.api.nvim_set_keymap("n", "<C-p>", ":FZF<CR>", {})
+vim.api.nvim_set_keymap("n", "<C-p>", ":Files<CR>", {})
 
 -- vim-asm_ca65
 vim.g.asm_ca65_wdc = true
