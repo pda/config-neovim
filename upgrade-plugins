@@ -11,7 +11,18 @@ main() {
   local sha1="$2"
   local toplevel="$3"
 
-  local upstream="origin/master" # can't assume submodules have tracking branches
+  local upstream # can't assume submodules have tracking branches
+  for b in main master; do
+    if git branch --remotes --list "origin/$b" | grep origin; then
+      upstream="origin/$b"
+      break
+    fi
+  done
+  if [[ -z $upstream ]]; then
+    echo >&2 "No main or master branch"
+    exit 1
+  fi
+
   local short_name; short_name="$(basename "$sm_path")"
 
   echo "Fetching $short_name"
