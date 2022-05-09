@@ -127,6 +127,9 @@ require("lspconfig").yamlls.setup {
   }
 }
 
+-- ruby LSP
+require("lspconfig").solargraph.setup {}
+
 vim.opt.completeopt = "menu,menuone,noselect"
 
 local cmp = require("cmp")
