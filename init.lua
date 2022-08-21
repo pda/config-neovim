@@ -12,9 +12,9 @@ vim.g.jellybeans_overrides = {
 
 vim.cmd "colorscheme jellybeans"
 
--- highlight current cursor line, with a notch after column 80
+-- highlight current cursor line, with a notch after column 100
 vim.opt.cursorline = true
-vim.opt.colorcolumn = "81"
+vim.opt.colorcolumn = "101"
 
 -- show line numbers
 vim.opt.number = true
