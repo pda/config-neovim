@@ -81,6 +81,10 @@ vim.opt.inccommand = "split"
 -- https://github.com/neovim/neovim/blob/253f6f3b/runtime/syntax/sh.vim#L16
 vim.g.is_bash = true
 
+-- Ruby: use the sane “variable” indentation, not the insane default “hanging” style.
+-- https://github.com/vim-ruby/vim-ruby/blob/vim8.2/doc/ft-ruby-indent.txt#L84-L106
+vim.g.ruby_indent_assignment_style = "variable"
+
 vim.cmd [[
   autocmd FileType ruby inoreabbrev <buffer> pry! require "pry"; binding.pry
 ]]
