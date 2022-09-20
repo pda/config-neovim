@@ -89,6 +89,9 @@ vim.cmd [[
   autocmd FileType ruby inoreabbrev <buffer> pry! require "pry"; binding.pry
 ]]
 
+-- Terraform
+vim.g.terraform_fmt_on_save = true
+
 ----------
 -- plugins
 
