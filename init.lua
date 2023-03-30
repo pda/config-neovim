@@ -16,6 +16,10 @@ vim.cmd "colorscheme jellybeans"
 vim.opt.cursorline = true
 vim.opt.colorcolumn = "101"
 
+-- maximum width of text being inserted before hard-wrapping.
+-- This affects manual `gq` wrapping, see also :help formatoptions
+vim.opt.textwidth = 100
+
 -- show line numbers
 vim.opt.number = true
 
