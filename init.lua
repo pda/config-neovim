@@ -99,6 +99,16 @@ vim.g.terraform_fmt_on_save = true
 ----------
 -- plugins
 
+vim.g.ale_linters = {
+  -- disable standardrb, it fights with per-project rubocop
+  -- ruby = { brakeman, cspell, debride, rails_best_practices, reek, rubocop, ruby, solargraph, sorbet, standardrb }
+  ruby = { brakeman, cspell, debride, rails_best_practices, reek, rubocop, ruby, solargraph, sorbet }
+}
+vim.g.ale_fixers = {
+  javascript = { "prettier" },
+}
+vim.g.ale_fix_on_save = 1
+
 local lspconfig = require("lspconfig")
 local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 for _, server in ipairs({ "gopls", "rust_analyzer", "yamlls", "solargraph" }) do
