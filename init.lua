@@ -101,8 +101,9 @@ vim.g.terraform_fmt_on_save = true
 
 vim.g.ale_linters = {
   -- disable standardrb, it fights with per-project rubocop
-  -- ruby = { brakeman, cspell, debride, rails_best_practices, reek, rubocop, ruby, solargraph, sorbet, standardrb }
-  ruby = { brakeman, cspell, debride, rails_best_practices, reek, rubocop, ruby, solargraph, sorbet }
+  -- ruby = { brakeman, cspell, debride, rails_best_practices, reek, rubocop, ruby, sorbet, standardrb }
+  ruby = { brakeman, cspell, debride, rails_best_practices, reek, rubocop, ruby, sorbet },
+  c = { },
 }
 vim.g.ale_fixers = {
   javascript = { "prettier" },
@@ -111,7 +112,7 @@ vim.g.ale_fix_on_save = 1
 
 local lspconfig = require("lspconfig")
 local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-for _, server in ipairs({ "gopls", "rust_analyzer", "yamlls", "solargraph" }) do
+for _, server in ipairs({ "gopls", "rust_analyzer", "yamlls" }) do
   lspconfig[server].setup { capabilities = capabilities }
 end
 
@@ -120,6 +121,9 @@ require("lspconfig").gopls.setup{}
 vim.g.go_auto_sameids = 1 -- highlight other instances of identifier under cursor
 vim.g.go_updatetime = 200 -- delay (ms) for sameids, type_info etc (default 800)
 vim.g.go_gopls_complete_unimported = 1 -- include suggestions from unimported packages
+
+-- clangd
+require("lspconfig").clangd.setup{}
 
 -- fzf
 vim.api.nvim_set_keymap("n", "<C-p>", ":Files<CR>", {})
@@ -148,10 +152,8 @@ require("lspconfig").yamlls.setup {
   }
 }
 
--- ruby LSP
-require("lspconfig").solargraph.setup {}
-
-vim.opt.completeopt = "menu,menuone,noselect"
+-- what was this for? solargraph completion? cmp?
+-- vim.opt.completeopt = "menu,menuone,noselect"
 
 local cmp = require("cmp")
 local luasnip = require("luasnip")
@@ -198,4 +200,54 @@ cmp.setup({
       get_bufnrs = function() return vim.api.nvim_list_bufs() end
     }},
   })
+})
+
+-- https://github.com/Shopify/ruby-lsp/blob/main/EDITORS.md
+-- textDocument/diagnostic support until 0.10.0 is released
+_timers = {}
+local function setup_diagnostics(client, buffer)
+  if require("vim.lsp.diagnostic")._enable then
+    return
+  end
+
+  local diagnostic_handler = function()
+    local params = vim.lsp.util.make_text_document_params(buffer)
+    client.request("textDocument/diagnostic", { textDocument = params }, function(err, result)
+      if err then
+        local err_msg = string.format("diagnostics error - %s", vim.inspect(err))
+        vim.lsp.log.error(err_msg)
+      end
+      local diagnostic_items = {}
+      if result then
+        diagnostic_items = result.items
+      end
+      vim.lsp.diagnostic.on_publish_diagnostics(
+        nil,
+        vim.tbl_extend("keep", params, { diagnostics = diagnostic_items }),
+        { client_id = client.id }
+      )
+    end)
+  end
+
+  diagnostic_handler() -- to request diagnostics on buffer when first attaching
+
+  vim.api.nvim_buf_attach(buffer, false, {
+    on_lines = function()
+      if _timers[buffer] then
+        vim.fn.timer_stop(_timers[buffer])
+      end
+      _timers[buffer] = vim.fn.timer_start(200, diagnostic_handler)
+    end,
+    on_detach = function()
+      if _timers[buffer] then
+        vim.fn.timer_stop(_timers[buffer])
+      end
+    end,
+  })
+end
+
+require("lspconfig").ruby_ls.setup({
+  on_attach = function(client, buffer)
+    setup_diagnostics(client, buffer)
+  end,
 })
