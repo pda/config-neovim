@@ -16,9 +16,6 @@
 [submodule "pack/pda/start/typescript-vim"]
 	path = pack/pda/start/typescript-vim
 	url = https://github.com/leafgarland/typescript-vim.git
-[submodule "pack/pda/start/ale"]
-	path = pack/pda/start/ale
-	url = https://github.com/dense-analysis/ale.git
 [submodule "pack/pda/start/vim-terraform"]
 	path = pack/pda/start/vim-terraform
 	url = https://github.com/hashivim/vim-terraform.git
@@ -49,12 +46,6 @@
 [submodule "pack/pda/start/cmp-buffer"]
 	path = pack/pda/start/cmp-buffer
 	url = https://github.com/hrsh7th/cmp-buffer.git
-[submodule "pack/pda/start/cmp_luasnip"]
-	path = pack/pda/start/cmp_luasnip
-	url = https://github.com/saadparwaiz1/cmp_luasnip.git
-[submodule "pack/pda/start/LuaSnip"]
-	path = pack/pda/start/LuaSnip
-	url = https://github.com/L3MON4D3/LuaSnip.git
 [submodule "pack/pda/start/vim-yardoc"]
 	path = pack/pda/start/vim-yardoc
 	url = https://github.com/noprompt/vim-yardoc.git

@@ -99,34 +99,16 @@ vim.g.terraform_fmt_on_save = true
 ----------
 -- plugins
 
-vim.g.ale_linters = {
-  -- disable standardrb, it fights with per-project rubocop
-  -- ruby = { brakeman, cspell, debride, rails_best_practices, reek, rubocop, ruby, sorbet, standardrb }
-  ruby = { brakeman, cspell, debride, rails_best_practices, reek, rubocop, ruby, sorbet },
-  c = { },
-}
-vim.g.ale_fixers = {
-  javascript = { "prettier" },
-}
-vim.g.ale_fix_on_save = 1
-
-local lspconfig = require("lspconfig")
-local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-for _, server in ipairs({ "gopls", "rust_analyzer", "yamlls" }) do
-  lspconfig[server].setup { capabilities = capabilities }
-end
-
--- vim-go
-require("lspconfig").gopls.setup{}
-vim.g.go_auto_sameids = 1 -- highlight other instances of identifier under cursor
-vim.g.go_updatetime = 200 -- delay (ms) for sameids, type_info etc (default 800)
-vim.g.go_gopls_complete_unimported = 1 -- include suggestions from unimported packages
-
--- clangd
-require("lspconfig").clangd.setup{}
+vim.opt.signcolumn = "yes"
 
 -- fzf
 vim.api.nvim_set_keymap("n", "<C-p>", ":Files<CR>", {})
+
+
+-- vim-go
+vim.g.go_auto_sameids = 1 -- highlight other instances of identifier under cursor
+vim.g.go_updatetime = 200 -- delay (ms) for sameids, type_info etc (default 800)
+vim.g.go_gopls_complete_unimported = 1 -- include suggestions from unimported packages
 
 -- vim-asm_ca65
 vim.g.asm_ca65_wdc = true
@@ -141,67 +123,50 @@ vim.cmd [[
 
 -- rust.vim
 vim.g.rustfmt_autosave = true
-require("lspconfig").rust_analyzer.setup{}
 
+-- what was this for? solargraph completion? cmp?
+-- vim.opt.completeopt = "menu,menuone,noselect"
+
+-------------
+-- LSP
+
+local lspconfig = require("lspconfig")
+local cmp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+-- Go: gopls
+lspconfig.gopls.setup({
+  capabilities = cmp_capabilities,
+})
+
+-- Rust: rust_analyzer
+lspconfig.rust_analyzer.setup({
+  capabilities = cmp_capabilities,
+})
+
+-- C: clangd
+lspconfig.clangd.setup({
+  capabilities = cmp_capabilities,
+})
+
+-- YAML: yamlls
 -- redhat-developer/yaml-language-store
-require("lspconfig").yamlls.setup {
+lspconfig.yamlls.setup({
+  capabilities = cmp_capabilities,
   settings = {
     yaml = {
       {schemaStore = {enable = true}},
     },
   }
-}
-
--- what was this for? solargraph completion? cmp?
--- vim.opt.completeopt = "menu,menuone,noselect"
-
-local cmp = require("cmp")
-local luasnip = require("luasnip")
-cmp.setup({
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end,
-  },
-  mapping = {
-    ["<C-p>"] = cmp.mapping.select_prev_item(),
-    ["<C-n>"] = cmp.mapping.select_next_item(),
-    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-    ["<C-f>"] = cmp.mapping.scroll_docs(4),
-    ["<C-Space>"] = cmp.mapping.complete(),
-    ["<C-e>"] = cmp.mapping.close(),
-    -- ["<CR>"] = cmp.mapping.confirm {
-    --   behavior = cmp.ConfirmBehavior.Replace,
-    --   select = true,
-    -- },
-    ['<Tab>'] = function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end,
-    ['<S-Tab>'] = function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end,
-  },
-  sources = cmp.config.sources({
-    { name = "nvim_lsp" },
-    { name = 'luasnip' },
-    { name = "buffer", option = {
-      get_bufnrs = function() return vim.api.nvim_list_bufs() end
-    }},
-  })
 })
 
+-- Ruby: Ruby LSP
+-- https://shopify.github.io/ruby-lsp/
+lspconfig.ruby_ls.setup({
+  capabilities = cmp_capabilities,
+  on_attach = function(client, buffer)
+    setup_diagnostics(client, buffer)
+  end,
+})
 -- https://github.com/Shopify/ruby-lsp/blob/main/EDITORS.md
 -- textDocument/diagnostic support until 0.10.0 is released
 _timers = {}
@@ -209,7 +174,6 @@ local function setup_diagnostics(client, buffer)
   if require("vim.lsp.diagnostic")._enable then
     return
   end
-
   local diagnostic_handler = function()
     local params = vim.lsp.util.make_text_document_params(buffer)
     client.request("textDocument/diagnostic", { textDocument = params }, function(err, result)
@@ -228,9 +192,7 @@ local function setup_diagnostics(client, buffer)
       )
     end)
   end
-
   diagnostic_handler() -- to request diagnostics on buffer when first attaching
-
   vim.api.nvim_buf_attach(buffer, false, {
     on_lines = function()
       if _timers[buffer] then
@@ -246,8 +208,29 @@ local function setup_diagnostics(client, buffer)
   })
 end
 
-require("lspconfig").ruby_ls.setup({
-  on_attach = function(client, buffer)
-    setup_diagnostics(client, buffer)
-  end,
+----------
+-- cmp
+
+local cmp = require("cmp")
+cmp.setup({
+  mapping = {
+    ['<CR>'] = cmp.mapping.confirm(),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ["<C-p>"] = cmp.mapping.select_prev_item(),
+    ["<C-n>"] = cmp.mapping.select_next_item(),
+    ['<Tab>'] = function(fallback)
+      if cmp.visible() then cmp.select_next_item() else fallback() end
+    end,
+    ['<S-Tab>'] = function(fallback)
+      if cmp.visible() then cmp.select_prev_item() else fallback() end
+    end,
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+  },
+  sources = cmp.config.sources({
+    { name = "nvim_lsp" },
+    { name = "buffer", option = {
+      get_bufnrs = function() return vim.api.nvim_list_bufs() end
+    }},
+  })
 })
