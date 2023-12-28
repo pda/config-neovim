@@ -234,3 +234,21 @@ cmp.setup({
     }},
   })
 })
+
+---------------
+-- Treesitter
+
+require('nvim-treesitter.configs').setup({
+  ensure_installed = {
+    'bash',
+    'go',
+    'java',
+    'json',
+    'lua',
+    'ruby',
+    'yaml',
+  },
+  highlight = {
+    enable = true,
+  },
+})
