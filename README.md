@@ -16,6 +16,8 @@ redundant with behaviour since built in to vim/neovim. Some plugins related to
 hobbies currently shelved. If I miss any functionality, I'll try to adapt to a
 new way, and failing that will gradually add a few more plugins and bindings.
 
+2024 update: let's throw all that out and try [kickstart][kickstart]
+
 I run Neovim in tmux in iTerm2 on macOS.
 
 ```sh
@@ -30,3 +32,4 @@ git clone --recursive https://github.com/pda/config-nvim.git ~/.config/nvim
 [dotvim]: https://github.com/pda/dotvim
 [vim]: http://www.vim.org/
 [neovim]: https://neovim.io/
+[kickstart]: https://github.com/nvim-lua/kickstart.nvim
