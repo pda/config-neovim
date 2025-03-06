@@ -104,6 +104,10 @@ vim.keymap.set('n', '<C-k>', ':m .-2<CR>==', { desc = 'Move line down' })
 vim.keymap.set('v', '<C-j>', ":m '>+1<CR>gv=gv", { desc = 'Move line up' })
 vim.keymap.set('v', '<C-k>', ":m '<-2<CR>gv=gv", { desc = 'Move line down' })
 
+-- Ruby: use the sane “variable” indentation, not the insane default “hanging” style.
+-- https://github.com/vim-ruby/vim-ruby/blob/vim8.2/doc/ft-ruby-indent.txt#L84-L106
+vim.g.ruby_indent_assignment_style = 'variable'
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
